@@ -33,6 +33,10 @@ class CSV implements iCSV {
 	}
 
 	public function encode($array) {
-
+		$string = '';
+		foreach ($array as $row) {
+			$string .= implode(',', $row) . ';';
+		}
+		return $string;
 	}
 }
