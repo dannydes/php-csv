@@ -29,8 +29,7 @@ class CSV implements iCSV {
 
 	public function decode($string) {
 		//separate into rows
-		$rows = explode(';', $string);
-		$rows = array_map('trim', $rows);
+		$rows = explode("\n", $string);
 
 		//separate rows into columns
 		$columns = array_map(array($this, 'decode_row'), $rows);
@@ -41,7 +40,7 @@ class CSV implements iCSV {
 	public function encode($array) {
 		$string = '';
 		foreach ($array as $row) {
-			$string .= implode(',', $row) . ';';
+			$string .= implode(',', $row) . "\n";
 		}
 		return $string;
 	}
