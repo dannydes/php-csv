@@ -23,13 +23,19 @@ class CSV implements iCSV {
 		return explode(',', $string);
 	}
 
+	private function is_not_empty_string_array($var) {
+		return $var[0] !== '';
+	}
+
 	public function decode($string) {
 		//separate into rows
 		$rows = explode(';', $string);
 		$rows = array_map('trim', $rows);
 
 		//separate rows into columns
-		return array_map(array($this, 'decode_row'), $rows);
+		$columns = array_map(array($this, 'decode_row'), $rows);
+
+		return array_filter($columns, array($this, 'is_not_empty_string_array'));
 	}
 
 	public function encode($array) {
